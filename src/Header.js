@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 
 const Header = function () {
+    const headerStyle = {
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        background: '#000',
+        color: 'white',
+        padding: 20
+    }
     return (
         <>
-            <div className='header'>
+            <div style={headerStyle}>
                 Phone Directory
             </div>
         </>
