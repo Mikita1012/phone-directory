@@ -1,27 +1,52 @@
 import React, { Component, Fragment } from 'react';
 import Header from './Header';
+import './App.css'
 
 class App extends Component {
   render() {
-    let firstname = "Mikita";
-    let lastname = "Shah";
-    let numberOfIceCreams = 3
-
-    let iceCreamPrice = 20;
+    let subscribers = [
+      {
+        id: 1,
+        name: 'Shilpa',
+        phone: 8888888888
+      },
+      {
+        id: 2,
+        name: 'Shristi',
+        phone: 9999999999
+      }
+    ]
     return (
       <Fragment>
-        {/* <span>Hello {firstname} {lastname}! The total amount you need to pay for {numberOfIceCreams} is Rs.{numberOfIceCreams * iceCreamPrice} </span> */}
         <Header />
-        <button>Add</button>
-        <div>
-          <span>Name</span> <br />
-          <span>Phone</span>
+
+        <div className='component-body-container'>
+          <button className='custom-btn add-btn'>Add</button>
+
+          <div className='grid-container heading-container'>
+            <span className='grid-item name-heading'>Name</span> <br />
+            <span className='grid-item phone-heading'>Phone</span>
+          </div>
+          {
+            subscribers.map(sub => {
+              return <div key={sub.id} className='grid-container'>
+                <span className='grid-item'>{sub.name}</span> <br />
+                <span className='grid-item'>{sub.phone}</span>
+              </div>
+            })
+          }
         </div>
-        <label htmlFor="name">Name: </label>
+
+
+
+
+
+
+        {/* <label htmlFor="name">Name: </label>
         <input type='text' id='name' placeholder='Type Here' defaultValue="Mikita"></input>
         <label htmlFor="phone">Phone: </label>
-        <input type='tel' id='phone' placeholder='Type Here' defaultValue="1234567890"></input>
-        
+        <input type='tel' id='phone' placeholder='Type Here' defaultValue="1234567890"></input> */}
+
       </Fragment>
     );
   }
