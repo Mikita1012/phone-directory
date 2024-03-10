@@ -24,14 +24,17 @@ class App extends Component {
           <button className='custom-btn add-btn'>Add</button>
 
           <div className='grid-container heading-container'>
-            <span className='grid-item name-heading'>Name</span> <br />
+            <span className='grid-item name-heading'>Name</span> 
             <span className='grid-item phone-heading'>Phone</span>
+            <span className='grid-item phone-heading'></span>
+            
           </div>
           {
             subscribers.map(sub => {
               return <div key={sub.id} className='grid-container'>
-                <span className='grid-item'>{sub.name}</span> <br />
+                <span className='grid-item'>{sub.name}</span> 
                 <span className='grid-item'>{sub.phone}</span>
+                <button className='deleteBtn'>DELETE</button>
               </div>
             })
           }

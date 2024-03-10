@@ -44,3 +44,10 @@
     text-transform: uppercase;
 }
 
+.deleteBtn {
+    width: fit-content;
+    padding: 10px;
+    border: none;
+    background-color: rgb(242, 118, 118);
+    font-weight: bold;
+}
