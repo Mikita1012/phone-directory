@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import Header from './Header';
 import './App.css'
+import AddSubscriber from './AddSubscriber';
 
 class App extends Component {
-  // deleteHandler() {
-  //   alert('Delete Clicked!')
-  // }
-  deleteHandler(message) {
-    alert(message)
+  deleteHandler() {
+    alert('Delete Clicked!')
   }
+  // deleteHandler(message) {
+  //   alert(message)
+  // }
   render() {
     let subscribers = [
       {
@@ -39,21 +40,13 @@ class App extends Component {
               return <div key={sub.id} className='grid-container'>
                 <span className='grid-item'>{sub.name}</span> 
                 <span className='grid-item'>{sub.phone}</span>
-                <button className='custom-btn deleteBtn' onClick={this.deleteHandler.bind(this, "Delete Clicked")}>DELETE</button>
+                <button className='custom-btn deleteBtn' onClick={this.deleteHandler}>DELETE</button>  {/* using onClick event*/}
+                {/* <button className='custom-btn deleteBtn' onClick={this.deleteHandler.bind(this, "Delete Clicked")}>DELETE</button> */} {/* using bind method*/}
               </div>
             })
           }
+
         </div>
-
-
-
-
-
-
-        {/* <label htmlFor="name">Name: </label>
-        <input type='text' id='name' placeholder='Type Here' defaultValue="Mikita"></input>
-        <label htmlFor="phone">Phone: </label>
-        <input type='tel' id='phone' placeholder='Type Here' defaultValue="1234567890"></input> */}
 
       </Fragment>
     );
