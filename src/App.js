@@ -4,12 +4,19 @@ import './App.css'
 import AddSubscriber from './AddSubscriber';
 
 class App extends Component {
-  deleteHandler() {
-    alert('Delete Clicked!')
+  deleteHandler(message) {
+    alert(message)
   }
-  // deleteHandler(message) {
-  //   alert(message)
-  // }
+
+
+  constructor() {
+    super();
+    this.state = {
+      subscribersListToShow: []
+    }
+
+
+  }
   render() {
     let subscribers = [
       {
@@ -36,7 +43,7 @@ class App extends Component {
             
           </div>
           {
-            subscribers.map(sub => {
+            this.state.subscribersListToShow.map(sub => {
               return <div key={sub.id} className='grid-container'>
                 <span className='grid-item'>{sub.name}</span> 
                 <span className='grid-item'>{sub.phone}</span>
