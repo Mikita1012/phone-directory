@@ -1,35 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import Header from './Header';
-import './App.css'
+import './ShowSubscriber.css'
 import AddSubscriber from './AddSubscriber';
 
-class App extends Component {
-  deleteHandler(message) {
-    alert(message)
-  }
+class ShowSubscriber extends Component {
 
-
-  constructor() {
-    super();
-    this.state = {
-      subscribersListToShow: []
-    }
-
-
-  }
   render() {
-    let subscribers = [
-      {
-        id: 1,
-        name: 'Shilpa',
-        phone: 8888888888
-      },
-      {
-        id: 2,
-        name: 'Shristi',
-        phone: 9999999999
-      }
-    ]
     return (
       <Fragment>
         <Header heading="Phone Directory"/>
@@ -43,7 +19,7 @@ class App extends Component {
             
           </div>
           {
-            this.state.subscribersListToShow.map(sub => {
+            this.props.subscriberList && this.props.subscriberList.map(sub => {
               return <div key={sub.id} className='grid-container'>
                 <span className='grid-item'>{sub.name}</span> 
                 <span className='grid-item'>{sub.phone}</span>
@@ -61,4 +37,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default ShowSubscriber;
