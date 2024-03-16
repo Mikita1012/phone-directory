@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Header from './Header'
 import './AddSubscriber.css'
 // import './App.css'
+import { Link } from 'react-router-dom';
 
 export default class AddSubscriber extends Component {
     constructor() {
@@ -20,21 +21,22 @@ export default class AddSubscriber extends Component {
         this.setState(state);
         console.log(this.state);
     }
-
-
+    
     onFormSubmitted = (e) => {
         e.preventDefault();
         this.props.addSubscriberHandler(this.state);
-        this.setState({id:0, name: '', phone: ''});
+        this.setState({ id: 0, name: '', phone: ' ' });
+        this.props.history.push("/");
     }
-    
     render() {
         const {name, phone} = this.state;
         return (
             <>
                 <Header heading="Add Subscriber" />
                 <div className='component-body-container'>
-                    <button className='custom-btn'>BACK</button>
+                    <Link to="/">
+                        <button className="custom-btn">Back</button>
+                    </Link>
                     <form className='subscriber-form' onSubmit={this.onFormSubmitted.bind(this)}>
                         <label htmlFor="name" className="label-control">Name: </label> <br />
                         <input type='text' id='name' name='name' className="input-control" onChange={this.inputChangeHandler}></input> <br /> <br />

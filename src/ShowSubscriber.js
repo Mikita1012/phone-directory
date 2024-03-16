@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Header from './Header';
 import './ShowSubscriber.css'
 import AddSubscriber from './AddSubscriber';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class ShowSubscriber extends Component {
   onDeleteClick = (subscriberId) => {
@@ -14,11 +14,9 @@ class ShowSubscriber extends Component {
       <Fragment>
         <Header heading="Phone Directory"/>
         <div className='component-body-container'>
-
+        <Link to="/add">
             <button className="custom-btn add-btn">Add</button>
-        {/* <Link to="/add">
-            <button className="custom-btn add-btn">Add</button>
-          </Link> */}
+          </Link>
 
           <div className='grid-container heading-container'>
             <span className='grid-item name-heading'>Name</span> 

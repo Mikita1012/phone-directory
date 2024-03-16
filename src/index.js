@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import AddSubscriber from './AddSubscriber';
 import './common/common.css'
 import PhonDirectory from './PhonDirectory';
+import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
@@ -15,9 +16,9 @@ import PhonDirectory from './PhonDirectory';
 // );
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <PhonDirectory />
-  </React.StrictMode>
+  </BrowserRouter>
 );
 // root.render(
 //   <React.StrictMode>
