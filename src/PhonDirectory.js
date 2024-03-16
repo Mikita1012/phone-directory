@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import AddSubscriber from './AddSubscriber'
 import ShowSubscriber from './ShowSubscriber';
-
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 export default class PhonDirectory extends Component {
     constructor() {
@@ -38,11 +38,35 @@ export default class PhonDirectory extends Component {
         this.setState({ subscriberList: subscriberList });
         console.log(this.state.subscriberList);
     }
+
+    deleteSubscriberHandler = (subscriberId) => {
+        let subscriberList = this.state.subscriberList;
+        let subscriberIndex = 0;
+        subscriberList.forEach(function (subscriber, index){
+            if(subscriber.id == subscriberId) {
+                subscriberIndex = index;
+            }
+            
+        }, this);
+
+        let newSubscribers = subscriberList;
+        newSubscribers.splice(subscriberIndex, 1);
+        this.setState({subscribers: newSubscribers});
+    }
+
+
     render() {
         return (
             <>
-            {/* <AddSubscriber addSubscriberHandler={this.addSubscriber} /> */}
-            <ShowSubscriber subscriberList={this.state.subscriberList}/>
+                <AddSubscriber addSubscriberHandler={this.addSubscriber} />
+                <ShowSubscriber subscriberList={this.state.subscriberList} deleteSubscriberHandler={this.deleteSubscriberHandler}/>
+
+                {/* <Router>
+                <div>
+                    <Route exact path="/add" render={({history}, props) => <AddSubscriber history={history} {...props} addSubscriberHandler={this.addSubscriberHandler} />} />
+                    <Route exact path="/" render={(props) => <ShowSubscriber {...props} subscribersList={this.state.subscribersList} />} />
+                </div>
+            </Router> */}
             </>
         )
     }
