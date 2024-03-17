@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import AddSubscriber from './AddSubscriber'
 import ShowSubscriber from './ShowSubscriber';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
-export default class PhonDirectory extends Component {
+export default class PhoneDirectory extends Component {
     constructor() {
         super();
         this.state = {
@@ -44,7 +43,7 @@ export default class PhonDirectory extends Component {
         let subscriberList = this.state.subscriberList;
         let subscriberIndex = 0;
         subscriberList.forEach(function (subscriber, index) {
-            if (subscriber.id == subscriberId) {
+            if (subscriber.id === subscriberId) {
                 subscriberIndex = index;
             }
 

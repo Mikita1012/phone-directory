@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import ShowSubscriber from './ShowSubscriber';
 import reportWebVitals from './reportWebVitals';
-import AddSubscriber from './AddSubscriber';
 import './common/common.css'
-import PhonDirectory from './PhonDirectory';
+import PhoneDirectory from './PhoneDirectory';
 import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,7 +15,7 @@ import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <PhonDirectory />
+    <PhoneDirectory />
   </BrowserRouter>
 );
 // root.render(
