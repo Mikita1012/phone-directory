@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import './common/common.css'
 import PhoneDirectory from './PhoneDirectory';
 import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import Test from './test'
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(
