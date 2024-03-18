@@ -27,10 +27,12 @@
 }
 
 .subscriber-to-add-heading {
-    color: #0a4f75;
-    font-weight: 600;
+    color: #3b4e58;
+    font-weight: 700;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 .subscriber-info {
     color: #808080;
 }
+

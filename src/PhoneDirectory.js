@@ -1,7 +1,9 @@
-import React, { Component, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import AddSubscriber from './AddSubscriber'
 import ShowSubscriber from './ShowSubscriber';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Footer from './Footer';
+import { SubscriberCountContext } from './SubscriberCountContext';
 
 export default function PhoneDirectory() {
     const [subscriberList, setSubcriberList] = useState([{
@@ -24,9 +26,10 @@ export default function PhoneDirectory() {
     function deleteSubscriberHandler(subscriberId) {
         const newSubscribers = subscriberList.filter((subscriber) => subscriber.id !== subscriberId);
         setSubcriberList(newSubscribers)
+        console.log("deleted");
     }
 
-    function addSubscriberHandler(newSubscriber){
+    function addSubscriberHandler(newSubscriber) {
         if (subscriberList.length > 0) {
             newSubscriber.id = subscriberList[subscriberList.length - 1].id + 1;
         } else {
@@ -34,23 +37,27 @@ export default function PhoneDirectory() {
         }
 
         subscriberList.push(newSubscriber);
+        console.log("ADDED");
         // this.setState({ subscriberList: subscriberList });
         setSubcriberList(subscriberList);
         // console.log(this.state.subscriberList);
     }
 
-        
+
 
     return (
-            <>
-                <Router>
-                    <div>
-                        <Route exact path="/" render={(props) => <ShowSubscriber {...props} subscriberList={subscriberList} deleteSubscriberHandler={(subscriberId) => deleteSubscriberHandler(subscriberId)} />} />
-                        <Route exact path="/add" render={({ history }, props) => <AddSubscriber  {...props} addSubscriberHandler={(newSubscriber) => addSubscriberHandler(newSubscriber)} />} />
-                    </div>
-                </Router>
-            </>
-        )
+        <Fragment>
+            <Router>
+                <div>
+                    <Route exact path="/add" render={({ history }, props) => <AddSubscriber {...props} addSubscriberHandler={(newSubscriber) => addSubscriberHandler(newSubscriber)} />} />
+                    <Route exact path="/" render={(props) => <ShowSubscriber {...props} subscriberList={subscriberList} deleteSubscriberHandler={(subscriberId) => deleteSubscriberHandler(subscriberId)} />} />
+                </div>
+            </Router>
+            <SubscriberCountContext.Provider value={subscriberList.length}>
+                <Footer></Footer>
+            </SubscriberCountContext.Provider>
+        </Fragment>
+    )
 }
 
 // export default class PhoneDirectory extends Component {
@@ -76,33 +83,33 @@ export default function PhoneDirectory() {
 //         }
 //     }
 
-    // addSubscriberHandler = (newSubscriber) => {
-    //     let subscriberList = this.state.subscriberList;
-    //     if (subscriberList.length > 0) {
-    //         newSubscriber.id = subscriberList[subscriberList.length - 1].id + 1;
-    //     } else {
-    //         newSubscriber.id = 1;
-    //     }
+// addSubscriberHandler = (newSubscriber) => {
+//     let subscriberList = this.state.subscriberList;
+//     if (subscriberList.length > 0) {
+//         newSubscriber.id = subscriberList[subscriberList.length - 1].id + 1;
+//     } else {
+//         newSubscriber.id = 1;
+//     }
 
-    //     subscriberList.push(newSubscriber);
-    //     this.setState({ subscriberList: subscriberList });
-    //     console.log(this.state.subscriberList);
-    // }
+//     subscriberList.push(newSubscriber);
+//     this.setState({ subscriberList: subscriberList });
+//     console.log(this.state.subscriberList);
+// }
 
-    // deleteSubscriberHandler = (subscriberId) => {
-    //     let subscriberList = this.state.subscriberList;
-    //     let subscriberIndex = 0;
-    //     subscriberList.forEach(function (subscriber, index) {
-    //         if (subscriber.id === subscriberId) {
-    //             subscriberIndex = index;
-    //         }
+// deleteSubscriberHandler = (subscriberId) => {
+//     let subscriberList = this.state.subscriberList;
+//     let subscriberIndex = 0;
+//     subscriberList.forEach(function (subscriber, index) {
+//         if (subscriber.id === subscriberId) {
+//             subscriberIndex = index;
+//         }
 
-    //     }, this);
+//     }, this);
 
-    //     let newSubscribers = subscriberList;
-    //     newSubscribers.splice(subscriberIndex, 1);
-    //     this.setState({ subscribers: newSubscribers });
-    // }
+//     let newSubscribers = subscriberList;
+//     newSubscribers.splice(subscriberIndex, 1);
+//     this.setState({ subscribers: newSubscribers });
+// }
 
 
 //     render() {

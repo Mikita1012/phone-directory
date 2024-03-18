@@ -1,9 +1,10 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import Header from './Header'
 import './AddSubscriber.css'
 // import './App.css'
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+// import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 
 export default function AddSubscriber({addSubscriberHandler}) {
     const [addSubscriberForm, setAddSubscriberForm] = useState({
@@ -45,17 +46,49 @@ export default function AddSubscriber({addSubscriberHandler}) {
             <Link to="/">
                 <button className="custom-btn">Back</button>
             </Link>
+            {/* <ValidatorForm className='subscriber-form' onSubmit={onFormSubmitted}> */}
             <form className='subscriber-form' onSubmit={onFormSubmitted}>
+                
+                {/* <TextValidator
+                    type='text' 
+                    id='name' 
+                    name='name'
+                    onChange={inputChangeHandler}
+                    value={name}
+                    label="Enter Name"
+                    validators={['required']}
+                    errorMessages={["Name cannot be empty"]}
+                >
+                </TextValidator> */}
+                
+                
                 <label htmlFor="name" className="label-control">Name: </label> <br />
-                <input type='text' id='name' name='name' className="input-control" onChange={inputChangeHandler}></input> <br /> <br />
-                <label htmlFor="phone" className="label-control">Phone: </label> <br />
-                <input type='tel' name='phone' id='phone' className="input-control" onChange={inputChangeHandler}></input> <br /> <br />
+                <input type='text' id='name' name='name' className="input-control" onChange={inputChangeHandler}></input>  
+            
+                <br /> <br />
+{/* 
+                <TextValidator
+                    type='tel' 
+                    name='phone' 
+                    id='phone' 
+                    onChange={inputChangeHandler}
+                    value={phone}
+                    label="Enter Phone Number"
+                    validators={['required']}
+                    errorMessages={["Phone number cannot be empty"]}
+                >
+
+                </TextValidator> */}
+
+                 <label htmlFor="phone" className="label-control">Phone: </label> <br />
+                <input type='tel' name='phone' id='phone' className="input-control" onChange={inputChangeHandler}></input> <br /> <br /> 
                 <div className='subscriber-info-container'>
                     <span className='subscriber-to-add-heading'>Subscriber to be added</span> <br/>
                     <span className='subscriber-info'>Name: {name}</span> <br/>
                     <span className='subscriber-info'>Phone: {phone}</span>
                 </div>
                 <button className='custom-btn add-btn'>ADD</button>
+            {/* </ValidatorForm> */}
             </form>
         </div>
     </>
