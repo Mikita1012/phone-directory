@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import AddSubscriber from './AddSubscriber'
 import ShowSubscriber from './ShowSubscriber';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -6,41 +6,58 @@ import Footer from './Footer';
 import { SubscriberCountContext } from './SubscriberCountContext';
 
 export default function PhoneDirectory() {
-    const [subscriberList, setSubcriberList] = useState([{
-        id: 1,
-        name: 'Shipla Bhatt',
-        phone: 9999999999
-    },
-    {
-        id: 2,
-        name: 'Shristi Gupta',
-        phone: 8888888888
-    },
-    {
-        id: 3,
-        name: 'Raj Kumar',
-        phone: 2345123456
-    }
-    ]);
+    const [subscriberList, setSubcriberList] = useState([]);
 
-    function deleteSubscriberHandler(subscriberId) {
-        const newSubscribers = subscriberList.filter((subscriber) => subscriber.id !== subscriberId);
-        setSubcriberList(newSubscribers)
-        console.log("deleted");
+
+    async function loadData() {
+        const input = await fetch("http://localhost:7081/contacts")
+        const data = await input.json()
+        setSubcriberList(data);
+        // fetch("http://localhost:7081/contacts"
+        // .then(input => input.json())
+        // .then(data => setSubcriberList(data));
     }
 
-    function addSubscriberHandler(newSubscriber) {
-        if (subscriberList.length > 0) {
-            newSubscriber.id = subscriberList[subscriberList.length - 1].id + 1;
-        } else {
-            newSubscriber.id = 1;
-        }
+    useEffect(() => {
+        loadData();
+    }, []);
 
-        subscriberList.push(newSubscriber);
-        console.log("ADDED");
+    async function deleteSubscriberHandler(subscriberId) {
+        // const newSubscribers = subscriberList.filter((subscriber) => subscriber.id !== subscriberId);
+        // setSubcriberList(newSubscribers)
+        // console.log("deleted");
+
+        const rawResponse = await fetch("http://localhost:7081/contacts/" + subscriberId, { method: "DELETE" });
+        const data = await rawResponse.json();
+        loadData();
+            // .then(input => input.json())
+            // .then(data => {
+            //     loadData();
+            // })
+    }
+
+    async function addSubscriberHandler(newSubscriber) {
+        const rawResponse = await fetch("http://localhost:7081/contacts", {
+            method: "POST",
+            headers: {
+                'Content-Type':'application/json'
+            }, 
+            body: JSON.stringify(newSubscriber)
+        })
+        const data  = await rawResponse.json();
+        loadData();
+
+        // if (subscriberList.length > 0) {
+        //     newSubscriber.id = subscriberList[subscriberList.length - 1].id + 1;
+        // } else {
+        //     newSubscriber.id = 1;
+        // }
+
+        // subscriberList.push(newSubscriber);
         // this.setState({ subscriberList: subscriberList });
-        setSubcriberList(subscriberList);
+        // setSubcriberList(subscriberList);
         // console.log(this.state.subscriberList);
+
     }
 
 

@@ -6,6 +6,7 @@
 .pnp.js
 test.js
 UseEffectEg.js
+mock-contact-server
 
 # testing
 /coverage
