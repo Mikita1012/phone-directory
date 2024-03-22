@@ -1,17 +1,21 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useReducer, useState } from 'react'
 import AddSubscriber from './AddSubscriber'
 import ShowSubscriber from './ShowSubscriber';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Footer from './Footer';
 import { SubscriberCountContext } from './SubscriberCountContext';
+import { TotalSubscribersReducer } from './TotalSubscribersReducer';
 
 export default function PhoneDirectory() {
     const [subscriberList, setSubcriberList] = useState([]);
-
+    const [state, dispatch] = useReducer(TotalSubscribersReducer, {count:0});
 
     async function loadData() {
         const input = await fetch("http://localhost:7081/contacts")
-        const data = await input.json()
+        const data = await input.json();
+
+        dispatch({"type":"UPDATE_COUNT", payload: data.length})
+
         setSubcriberList(data);
         // fetch("http://localhost:7081/contacts"
         // .then(input => input.json())
@@ -28,9 +32,9 @@ export default function PhoneDirectory() {
         loadData();
     }, [subscriberList]);
 
-    const numberOfSubscriptions  = useMemo(()=>{
-        return subscriberList.length
-    }, [subscriberList])
+    // const numberOfSubscriptions  = useMemo(()=>{
+    //     return subscriberList.length
+    // }, [subscriberList])
 
     // async function deleteSubscriberHandler(subscriberId) {
         // const newSubscribers = subscriberList.filter((subscriber) => subscriber.id !== subscriberId);
@@ -80,75 +84,10 @@ export default function PhoneDirectory() {
                     <Route exact path="/" render={(props) => <ShowSubscriber {...props} subscriberList={subscriberList} deleteSubscriberHandler={(subscriberId) => deleteSubscriberHandler(subscriberId)} />} />
                 </div>
             </Router>
-            <SubscriberCountContext.Provider value={numberOfSubscriptions}>
+            <SubscriberCountContext.Provider value={state.count}>
                 <Footer></Footer>
             </SubscriberCountContext.Provider>
         </Fragment>
     )
 }
 
-// export default class PhoneDirectory extends Component {
-//     constructor() {
-//         super();
-//         this.state = {
-//             subscriberList: [{
-//                 id: 1,
-//                 name: 'Shipla Bhatt',
-//                 phone: 9999999999
-//             },
-//             {
-//                 id: 2,
-//                 name: 'Shristi Gupta',
-//                 phone: 8888888888
-//             },
-//             {
-//                 id: 3,
-//                 name: 'Raj Kumar',
-//                 phone: 2345123456
-//             }
-//             ]
-//         }
-//     }
-
-// addSubscriberHandler = (newSubscriber) => {
-//     let subscriberList = this.state.subscriberList;
-//     if (subscriberList.length > 0) {
-//         newSubscriber.id = subscriberList[subscriberList.length - 1].id + 1;
-//     } else {
-//         newSubscriber.id = 1;
-//     }
-
-//     subscriberList.push(newSubscriber);
-//     this.setState({ subscriberList: subscriberList });
-//     console.log(this.state.subscriberList);
-// }
-
-// deleteSubscriberHandler = (subscriberId) => {
-//     let subscriberList = this.state.subscriberList;
-//     let subscriberIndex = 0;
-//     subscriberList.forEach(function (subscriber, index) {
-//         if (subscriber.id === subscriberId) {
-//             subscriberIndex = index;
-//         }
-
-//     }, this);
-
-//     let newSubscribers = subscriberList;
-//     newSubscribers.splice(subscriberIndex, 1);
-//     this.setState({ subscribers: newSubscribers });
-// }
-
-
-//     render() {
-//         return (
-//             <>
-//                 <Router>
-//                     <div>
-//                         <Route exact path="/" render={(props) => <ShowSubscriber {...props} subscriberList={this.state.subscriberList} deleteSubscriberHandler={this.deleteSubscriberHandler} />} />
-//                         <Route exact path="/add" render={({ history }, props) => <AddSubscriber history={history} {...props} addSubscriberHandler={this.addSubscriberHandler} />} />
-//                     </div>
-//                 </Router>
-//             </>
-//         )
-//     }
-// }
