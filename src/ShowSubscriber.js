@@ -3,9 +3,12 @@ import Header from './Header';
 import './ShowSubscriber.css'
 import AddSubscriber from './AddSubscriber';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
-export default function ShowSubscriber({deleteSubscriberHandler, subscriberList}) {
+export default function ShowSubscriber({deleteSubscriberHandler}) {
+
+  const subscriberList = useSelector(state => state.subscribers)
 
   useEffect(() => {
     if(subscriberList && subscriberList.length) 

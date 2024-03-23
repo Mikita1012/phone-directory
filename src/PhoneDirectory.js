@@ -5,17 +5,21 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Footer from './Footer';
 import { SubscriberCountContext } from './SubscriberCountContext';
 import { TotalSubscribersReducer } from './TotalSubscribersReducer';
+import { useDispatch } from 'react-redux';
 
 export default function PhoneDirectory() {
     const [subscriberList, setSubcriberList] = useState([]);
-    const [state, dispatch] = useReducer(TotalSubscribersReducer, {count:0});
+    const [state, dispatchToTotalSubscriberReducer] = useReducer(TotalSubscribersReducer, {count:0});
+
+    const dispatch = useDispatch();
 
     async function loadData() {
         const input = await fetch("http://localhost:7081/contacts")
         const data = await input.json();
 
-        dispatch({"type":"UPDATE_COUNT", payload: data.length})
-
+        // dispatch({"type":"UPDATE_COUNT", payload: data.length})
+        dispatch({"type": "SET_SUBSCRIBERS", payload: data});
+        dispatchToTotalSubscriberReducer({"type":"UPDATE_COUNT", payload: data.length})
         setSubcriberList(data);
         // fetch("http://localhost:7081/contacts"
         // .then(input => input.json())
@@ -81,10 +85,10 @@ export default function PhoneDirectory() {
             <Router>
                 <div>
                     <Route exact path="/add" render={({ history }, props) => <AddSubscriber {...props} addSubscriberHandler={(newSubscriber) => addSubscriberHandler(newSubscriber)} />} />
-                    <Route exact path="/" render={(props) => <ShowSubscriber {...props} subscriberList={subscriberList} deleteSubscriberHandler={(subscriberId) => deleteSubscriberHandler(subscriberId)} />} />
+                    <Route exact path="/" render={(props) => <ShowSubscriber {...props}  deleteSubscriberHandler={(subscriberId) => deleteSubscriberHandler(subscriberId)} />} />
                 </div>
             </Router>
-            <SubscriberCountContext.Provider value={state.count}>
+            <SubscriberCountContext.Provider value={subscriberList.length}>
                 <Footer></Footer>
             </SubscriberCountContext.Provider>
         </Fragment>
